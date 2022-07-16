@@ -1,6 +1,7 @@
 // @ts-check
 import { useState } from "react";
-import styles from './App.module.css'
+import AddTask from "./AddTask";
+import TasksList from "./TasksList";
 
 // JSX element
 const jsxElem = <h2>App component</h2>
@@ -22,44 +23,15 @@ const initialTasks = [
     done: false
   },
 ]
-
-// const tasksJSX = [
-//   <li key={tasks[0].id}>{tasks[0].name}</li>,
-//   <li key={tasks[1].id}>{tasks[1].name}</li>,
-//   <li key={tasks[2].id}>{tasks[2].name}</li>,
-// ]
-
 export function App(props) {
   // State managment
+  // useState hook
   const [tasks, setTasks] = useState(initialTasks)
-  const [input, setInput] = useState('')
+  console.log('Render')
   return (
     <div>
-      <input value={input} onChange={e => setInput(e.target.value)} />
-      <button onClick={() => {
-        setTasks((prevTasks) => {
-          return [
-            ...prevTasks,
-            {
-              id: Math.round(Math.random() * 1000),
-              name: input,
-              done: false
-            }
-          ]
-        })
-      }}>Add</button>
-      <ul>
-        {
-          tasks.map((task) => {
-            return <li 
-              key={task.id}
-              className={task.done ? styles.doneTask : styles.task}
-            >{task.name}</li>
-          })
-        }
-      </ul>
+      <AddTask setTasks={setTasks} />
+      <TasksList tasks={tasks} />
     </div>
   );
 }
-
-// export default App;
